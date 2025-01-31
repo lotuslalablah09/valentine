@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffe6e6;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Big Heart Shape */
+        .big-heart {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 270px;
+            background-color: pink;
+            clip-path: polygon(50% 15%, 90% 15%, 100% 35%, 50% 100%, 0% 35%, 10% 15%);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        /* Container */
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        /* Cupid */
+        .cupid {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+        }
+
+        /* Cat-Dog GIF */
+        .cat-dog {
+            margin-top: 10px;
+            width: 200px;
+            animation: snuggle 2s infinite alternate;
+        }
+
+        @keyframes snuggle {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* Raining Hearts */
+        .heart {
+            position: fixed;
+            color: red;
+            font-size: 20px;
+            top: -50px;
+            animation: fallHearts linear infinite;
+        }
+
+        @keyframes fallHearts {
+            0% { transform: translateY(-10vh) scale(1); opacity: 1; }
+            100% { transform: translateY(110vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Buttons */
+        button {
+            background-color: #ff4d6d;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #e60039;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="big-heart"></div> 
+
+    <div class="container">
+        <img src="cupid.png" class="cupid" alt="Cupid">
+        <h1>Helloo tiku baebii 🎀🐥</h1>
+        <p>Will you be my valentine? 🤪🤙🏻</p>
+
+        <img src="cat-dog.gif" class="cat-dog" alt="Cat and Dog Snuggling">
+
+        <br>
+
+        <button onclick="showResponse('Yes')">Yes 😽🍧</button>
+        <button onclick="showResponse('No')">No 😭</button>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="./song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <script>
+        // Play music only after user interaction
+        document.addEventListener("click", function () {
+            const audio = document.getElementById("bg-music");
+            if (audio.paused) {
+                audio.volume = 1.0; // Ensure volume is set
+                audio.play().then(() => {
+                    console.log("Music playing! 🎵");
+                }).catch(error => console.log("Music play error:", error));
+            }
+        }, { once: true }); // Ensures it only runs once
+
+        function showResponse(answer) {
+            if(answer === 'Yes') {
+                alert("Oowee yaya, slay qween! I weee you jaanu! 😽💖");
+            } else {
+                alert("No? 😢 But I still love you!");
+            }
+            console.log("Response: " + answer);
+        }
+
+        // Raining Hearts Effect
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.innerText = "❤️";
+            heart.classList.add("heart");
+
+            // Random Size & Position
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 15 + "px"; 
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+            document.body.appendChild(heart);
+
+            // Remove Heart after Animation Ends
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 200);
+    </script>
+
+</body>
+</html>
